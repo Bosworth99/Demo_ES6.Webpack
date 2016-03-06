@@ -125,7 +125,7 @@
 	///////////////////////////////////////////////////////////////////////////
 
 	var config = exports.config = {
-	    name: "10k-interactive.com",
+	    name: "es6 webpack demo",
 	    version: 0.1,
 	    debug: true
 	};
