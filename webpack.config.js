@@ -21,7 +21,10 @@ module.exports = {
         ],
         modulesDirectories: ['javascript', 'node_modules'],
         extensions: ['', '.js'],
-        alias: {},
+        alias: {
+            jquery : 'jquery/dist/jquery.min',
+            underscore : 'underscore/underscore-min'
+        }
     },
     resolveLoader: {
         modulesDirectories: [

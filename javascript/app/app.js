@@ -1,29 +1,49 @@
 import { config } from 'config';
+import Person from 'person';
 
-export default (function(){
-    'use strict';
-
-    class App {
+export default class App {
 
         constructor(){
-            console.log('App::constructor %s %s', config.name, config.version );
+            console.log(`App::constructor ${config.name} ${config.version}`);
         }
 
         init(){
             console.log('App::init %o', this);
 
-            _method();
-            _method('holy moly');
+            this.start();
         }
-    }
 
-    let _private = 'foobar';
-    let _method = (str) => {
+        start(){
 
-        console.log('_private = ', str || _private );
+            this.person = new Person('Bob');
+            this.person.hello();
+            this.person.foobar = 'barfoo';
+            this.person.quux();
 
-    };
+        }
+}
 
-    return App;
-
-})();
+// export default (function(){
+//     'use strict';
+//
+//     let _person;
+//
+//     class App {
+//
+//         constructor(){
+//             console.log('App::constructor %s %s', config.name, config.version );
+//         }
+//
+//         init(){
+//             console.log('App::init %o', this);
+//         }
+//
+//         start(){
+//             _person = new Person('Bob');
+//
+//         }
+//     }
+//
+//     return App;
+//
+// })();
