@@ -108,37 +108,14 @@
 	            this.person.hello();
 	            this.person.foobar = 'barfoo';
 	            this.person.quux();
+
+	            this.cats = new _cats2.default('Cats');
+	            this.cats.init();
 	        }
 	    }]);
 
 	    return App;
 	}();
-
-	// export default (function(){
-	//     'use strict';
-	//
-	//     let _person;
-	//
-	//     class App {
-	//
-	//         constructor(){
-	//             console.log('App::constructor %s %s', config.name, config.version );
-	//         }
-	//
-	//         init(){
-	//             console.log('App::init %o', this);
-	//         }
-	//
-	//         start(){
-	//             _person = new Person('Bob');
-	//
-	//         }
-	//     }
-	//
-	//     return App;
-	//
-	// })();
-
 
 	exports.default = App;
 
@@ -232,13 +209,10 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var sym = Symbol(10);
-
 	var Base = function () {
 	    function Base() {
 	        _classCallCheck(this, Base);
 
-	        console.log(sym);
 	        this._foobar = 'foobar';
 	        this._ = _underscore._;
 	    }
@@ -315,8 +289,6 @@
 	    _inherits(Cats, _Base);
 
 	    function Cats() {
-	        var name = arguments.length <= 0 || arguments[0] === undefined ? 'Cat' : arguments[0];
-
 	        _classCallCheck(this, Cats);
 
 	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Cats).call(this));
@@ -326,16 +298,18 @@
 	        key: 'init',
 	        value: function init() {
 
+	            var $http = new _http2.default();
+
 	            var request = {
-	                'foo': 'bar'
+	                'dataType': 'jsonp'
 	            };
 
 	            var callback = {
 	                success: function success(data) {
-	                    console.log(1, 'success', JSON.parse(data));
+	                    console.log('success %o', JSON.parse(data));
 	                },
 	                error: function error(data) {
-	                    console.log(2, 'error', JSON.parse(data));
+	                    console.log('error : %o', data);
 	                }
 	            };
 
@@ -344,7 +318,9 @@
 	                'data': request
 	            };
 
-	            _http2.default.get(payload).then(callback.succss).error(callback.error);
+	            console.log('%o', $http);
+
+	            $http.get(payload).then(callback.succss, callback.error);
 	        }
 	    }]);
 

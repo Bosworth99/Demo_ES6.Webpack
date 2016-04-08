@@ -4,22 +4,24 @@ import HTTP from 'http';
 
 let Cats = class extends Base {
 
-    constructor(name = 'Cat'){
+    constructor(){
         super();
     }
 
     init(){
 
+        let $http = new HTTP();
+
         let request = {
-            'foo' : 'bar'
+            'dataType' : 'jsonp'
         };
 
         let callback = {
             success : function(data){
-               console.log(1, 'success', JSON.parse(data));
+               console.log('success %o', JSON.parse(data));
             },
             error : function(data){
-               console.log(2, 'error', JSON.parse(data));
+               console.log('error : %o', data);
             }
         };
 
@@ -28,9 +30,11 @@ let Cats = class extends Base {
             'data' : request
         };
 
-        HTTP.get(payload)
-            .then(callback.succss)
-            .error(callback.error);
+        console.log('%o',$http);
+
+        $http
+            .get(payload)
+            .then(callback.succss, callback.error);
     }
 
 };

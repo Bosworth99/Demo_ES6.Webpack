@@ -1,11 +1,9 @@
 import { _ } from 'underscore';
 
-let sym = Symbol(10);
-
 let Base = class {
 
     constructor(){
-        console.log(sym);
+
         this._foobar  = 'foobar';
         this._ = _;
     }
