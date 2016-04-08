@@ -9,6 +9,7 @@ let Person = class extends Base{
 
     hello(){
         console.log(`Hello, ${this._name}`);
+        this.quux();
     }
 
     get name(){

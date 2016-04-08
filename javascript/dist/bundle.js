@@ -67,7 +67,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	        value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -78,36 +78,40 @@
 
 	var _person2 = _interopRequireDefault(_person);
 
+	var _cats = __webpack_require__(7);
+
+	var _cats2 = _interopRequireDefault(_cats);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var App = function () {
-	        function App() {
-	                _classCallCheck(this, App);
+	    function App() {
+	        _classCallCheck(this, App);
 
-	                console.log('App::constructor ' + _config.config.name + ' ' + _config.config.version);
+	        console.log('App::constructor ' + _config.config.name + ' ' + _config.config.version);
+	    }
+
+	    _createClass(App, [{
+	        key: 'init',
+	        value: function init() {
+	            console.log('App::init %o', this);
+
+	            this.start();
 	        }
+	    }, {
+	        key: 'start',
+	        value: function start() {
 
-	        _createClass(App, [{
-	                key: 'init',
-	                value: function init() {
-	                        console.log('App::init %o', this);
+	            this.person = new _person2.default('Bob');
+	            this.person.hello();
+	            this.person.foobar = 'barfoo';
+	            this.person.quux();
+	        }
+	    }]);
 
-	                        this.start();
-	                }
-	        }, {
-	                key: 'start',
-	                value: function start() {
-
-	                        this.person = new _person2.default('Bob');
-	                        this.person.hello();
-	                        this.person.foobar = 'barfoo';
-	                        this.person.quux();
-	                }
-	        }]);
-
-	        return App;
+	    return App;
 	}();
 
 	// export default (function(){
@@ -195,6 +199,7 @@
 	        key: 'hello',
 	        value: function hello() {
 	            console.log('Hello, ' + this._name);
+	            this.quux();
 	        }
 	    }, {
 	        key: 'name',
@@ -276,6 +281,175 @@
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _base = __webpack_require__(4);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var _http = __webpack_require__(8);
+
+	var _http2 = _interopRequireDefault(_http);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //http://catgifs.tumblr.com/api/read/json
+
+
+	var Cats = function (_Base) {
+	    _inherits(Cats, _Base);
+
+	    function Cats() {
+	        var name = arguments.length <= 0 || arguments[0] === undefined ? 'Cat' : arguments[0];
+
+	        _classCallCheck(this, Cats);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Cats).call(this));
+	    }
+
+	    _createClass(Cats, [{
+	        key: 'init',
+	        value: function init() {
+
+	            var request = {
+	                'foo': 'bar'
+	            };
+
+	            var callback = {
+	                success: function success(data) {
+	                    console.log(1, 'success', JSON.parse(data));
+	                },
+	                error: function error(data) {
+	                    console.log(2, 'error', JSON.parse(data));
+	                }
+	            };
+
+	            var payload = {
+	                'url': 'http://catgifs.tumblr.com/api/read/json',
+	                'data': request
+	            };
+
+	            _http2.default.get(payload).then(callback.succss).error(callback.error);
+	        }
+	    }]);
+
+	    return Cats;
+	}(_base2.default);
+
+	exports.default = Cats;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	// A-> $http function is implemented in order to follow the standard Adapter pattern
+
+	var HTTP = function () {
+	    function HTTP() {
+	        _classCallCheck(this, HTTP);
+	    }
+
+	    // Method that performs the ajax request
+
+
+	    _createClass(HTTP, [{
+	        key: 'ajax',
+	        value: function ajax(method, url, args) {
+	            var _this = this;
+
+	            // Return the promise
+	            return new Promise(function (resolve, reject) {
+
+	                // Instantiates the XMLHttpRequest
+	                var client = new XMLHttpRequest();
+	                var uri = url;
+
+	                if (args && (method === 'POST' || method === 'PUT')) {
+
+	                    uri += '?';
+	                    var argcount = 0;
+
+	                    for (var key in args) {
+	                        if (args.hasOwnProperty(key)) {
+
+	                            if (argcount++) {
+	                                uri += '&';
+	                            }
+
+	                            uri += encodeURIComponent(key) + '=' + encodeURIComponent(args[key]);
+	                        }
+	                    }
+	                }
+
+	                client.open(method, uri);
+	                client.send();
+
+	                client.onload = function () {
+	                    if (_this.status >= 200 && _this.status < 300) {
+	                        // Performs the function "resolve" when this.status is equal to 2xx
+	                        resolve(_this.response);
+	                    } else {
+	                        // Performs the function "reject" when this.status is different than 2xx
+	                        reject(_this.statusText);
+	                    }
+	                };
+
+	                client.onerror = function () {
+	                    reject(_this.statusText);
+	                };
+	            });
+	        }
+	    }, {
+	        key: 'get',
+	        value: function get(payload) {
+	            return this.ajax('GET', payload.url, payload.data);
+	        }
+	    }, {
+	        key: 'post',
+	        value: function post(payload) {
+	            return this.ajax('POST', payload.url, payload.data);
+	        }
+	    }, {
+	        key: 'put',
+	        value: function put(payload) {
+	            return this.ajax('PUT', payload.url, payload.data);
+	        }
+	    }, {
+	        key: 'delete',
+	        value: function _delete(payload) {
+	            return this.ajax('DELETE', payload.url, payload.data);
+	        }
+	    }]);
+
+	    return HTTP;
+	}();
+
+	exports.default = HTTP;
 
 /***/ }
 /******/ ]);
